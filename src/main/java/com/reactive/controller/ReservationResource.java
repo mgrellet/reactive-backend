@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -31,6 +32,12 @@ public class ReservationResource {
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Reservation> getReservationById(@PathVariable String id) {
         return reservationService.getReservation(id);
+        //return Mono.just("{}");
+    }
+
+    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<Reservation> getReservationById() {
+        return reservationService.listAllReservation();
         //return Mono.just("{}");
     }
 
@@ -60,6 +67,8 @@ public class ReservationResource {
         return reservationService.deleteReservation(id);
 
     }
+
+
 
 
 }
